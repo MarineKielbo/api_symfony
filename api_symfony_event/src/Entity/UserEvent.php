@@ -5,10 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="users_event")
  * @ORM\Entity(repositoryClass="App\Repository\UserEventRepository")
  */
-class UsersEvent
+class UserEvent
 {
     /**
      * @var int
@@ -20,17 +19,14 @@ class UsersEvent
     private $id;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Event")
-    * @ORM\JoinColumn(nullable=false)
-    */
-    public $event;
+     * @ORM\ManyToOne(targetEntity="Event", cascade={"persist"})
+     */
+    private $event;
 
     /**
-    * @ORM\ManyToOne(targetEntity="User")
-    * @ORM\JoinColumn(nullable=false)
-    */
-    public $user;
-
+     * @ORM\ManyToOne(targetEntity="UserInscription", cascade={"persist"})
+     */
+    private $user_inscription;
 
     /**
      * Get id
@@ -42,6 +38,12 @@ class UsersEvent
         return $this->id;
     }
 
+
+    public function getEventId()
+    {
+        return $this->event;
+    }
+
     public function setEvent(Event $event)
     {
         $this->event = $event;
@@ -49,21 +51,16 @@ class UsersEvent
         return $this;
     }
 
-    public function getEvent()
+    public function getUserInscription()
     {
-        return $this->event;
+        return $this->user_inscription;
     }
 
-    public function setUser(User $user)
+    public function setUserInscription(UserInscription $user_inscription)
     {
-        $this->user = $user;
+        $this->user_inscription = $user_inscription;
 
         return $this;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
     }
 }
 
